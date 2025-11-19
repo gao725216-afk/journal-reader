@@ -1,11 +1,15 @@
 {
   "name": "journal-reader",
   "private": true,
-  "version": "0.2.0",
-  "type": "module",
+  "version": "0.3.0",
+  "author": "Your Name",
+  "description": "双语论文阅读器 - 桌面版",
+  "main": "dist-electron/main.js",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "dev:electron": "electron-vite dev",
+    "build": "tsc && vite build && electron-builder",
+    "build:dir": "tsc && vite build && electron-builder --dir",
     "preview": "vite preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
@@ -17,7 +21,12 @@
     "rehype-katex": "^7.0.0",
     "katex": "^0.16.9",
     "pdfjs-dist": "^3.11.174",
-    "zustand": "^4.4.7"
+    "zustand": "^4.4.7",
+    "reactflow": "^11.10.4",
+    "@reactflow/core": "^11.10.4",
+    "@reactflow/background": "^11.3.9",
+    "@reactflow/controls": "^11.2.9",
+    "@reactflow/minimap": "^11.7.8"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
@@ -29,6 +38,35 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "vite": "^5.0.8",
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1",
+    "electron-vite": "^2.0.0"
+  },
+  "build": {
+    "appId": "com.journal-reader.app",
+    "productName": "Journal Reader",
+    "directories": {
+      "output": "release/${version}"
+    },
+    "files": [
+      "dist",
+      "dist-electron"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
   }
 }
