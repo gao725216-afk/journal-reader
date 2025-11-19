@@ -1,45 +1,41 @@
 @echo off
-chcp 65001 >nul
 echo ========================================
-echo   📚 双语论文阅读器 - 自动安装程序
+echo   Journal Reader - Auto Install
 echo ========================================
 echo.
 
-REM 检查Node.js是否安装
-echo [1/3] 检查Node.js...
+echo [1/3] Checking Node.js...
 node --version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo ❌ 未检测到Node.js！
+    echo [ERROR] Node.js not found!
     echo.
-    echo 请先安装Node.js: https://nodejs.org/
-    echo 推荐下载LTS版本（长期支持版）
+    echo Please install Node.js from: https://nodejs.org/
+    echo Download the LTS version
     echo.
     pause
     exit /b 1
 )
-echo ✅ Node.js已安装
+echo [OK] Node.js installed
 
-REM 检查npm
 echo.
-echo [2/3] 检查npm...
+echo [2/3] Checking npm...
 npm --version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo ❌ npm未正常工作
+    echo [ERROR] npm not working
     pause
     exit /b 1
 )
-echo ✅ npm已就绪
+echo [OK] npm ready
 
-REM 安装依赖
 echo.
-echo [3/3] 安装依赖包...
-echo 这可能需要几分钟，请耐心等待...
+echo [3/3] Installing dependencies...
+echo This may take a few minutes, please wait...
 echo.
 call npm install
 
 if %errorlevel% neq 0 (
     echo.
-    echo ❌ 安装失败！
+    echo [ERROR] Installation failed!
     echo.
     pause
     exit /b 1
@@ -47,11 +43,11 @@ if %errorlevel% neq 0 (
 
 echo.
 echo ========================================
-echo   ✅ 安装完成！
+echo   Installation Complete!
 echo ========================================
 echo.
-echo 现在你可以：
-echo   1. 双击 start.bat 启动应用
-echo   2. 或者运行: npm run dev:electron
+echo You can now:
+echo   1. Double-click start.bat to launch
+echo   2. Or run: npm run dev:electron
 echo.
 pause
