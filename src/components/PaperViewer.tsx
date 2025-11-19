@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { useAppStore } from '../store/appStore'
+import PDFViewer from './PDFViewer'
 import './PaperViewer.css'
 
 const PaperViewer = () => {
   const contentRef = useRef<HTMLDivElement>(null)
   const [isUserScrolling, setIsUserScrolling] = useState(false)
   const scrollTimeoutRef = useRef<NodeJS.Timeout>()
+  const [pdfFile, setPdfFile] = useState<File | null>(null)
+  const [fileType, setFileType] = useState<'text' | 'pdf' | null>(null)
 
   const {
     paperContent,
@@ -25,9 +28,14 @@ const PaperViewer = () => {
     if (file.type === 'text/plain' || file.name.endsWith('.txt')) {
       const text = await file.text()
       setPaperContent(text)
-    } else if (file.type === 'application/pdf') {
-      // 对于PDF，显示提示信息
-      alert('PDF支持正在开发中。目前请先将PDF转换为文本格式上传。')
+      setPdfFile(null)
+      setFileType('text')
+    } else if (file.type === 'application/pdf' || file.name.endsWith('.pdf')) {
+      setPdfFile(file)
+      setPaperContent('')
+      setFileType('pdf')
+    } else {
+      alert('不支持的文件格式。请上传 .txt 或 .pdf 文件。')
     }
   }
 
@@ -91,6 +99,16 @@ const PaperViewer = () => {
     contentRef.current.scrollTop = targetScroll
   }, [rightScrollRatio, isUserScrolling, syncScrollEnabled])
 
+  // 处理PDF单词点击
+  const handlePdfWordClick = async (word: string, position: { x: number; y: number }) => {
+    const cleanWord = word.replace(/[.,;:!?"""''()]/g, '')
+    if (cleanWord.length === 0) return
+
+    setSelectedWord(cleanWord, position)
+    const definition = await fetchWordDefinition(cleanWord)
+    setWordDefinition(definition)
+  }
+
   return (
     <div className="paper-viewer">
       <div className="viewer-header">
@@ -105,36 +123,47 @@ const PaperViewer = () => {
             />
             上传文件
           </label>
+          {fileType && (
+            <span className="file-type-badge">
+              {fileType === 'pdf' ? '📕 PDF' : '📝 TXT'}
+            </span>
+          )}
         </div>
       </div>
 
-      <div
-        ref={contentRef}
-        className="viewer-content"
-        onScroll={handleScroll}
-      >
-        {paperContent ? (
-          <div className="text-content" onClick={handleWordClick}>
-            {paperContent.split(/(\s+)/).map((segment, index) => {
-              // 如果是空白字符，直接返回
-              if (/^\s+$/.test(segment)) {
-                return <span key={index}>{segment}</span>
-              }
-              // 否则，每个单词都可以点击
-              return (
-                <span key={index} className="word" data-word={segment}>
-                  {segment}
-                </span>
-              )
-            })}
-          </div>
-        ) : (
+      {fileType === 'pdf' && pdfFile ? (
+        <PDFViewer file={pdfFile} onWordClick={handlePdfWordClick} />
+      ) : fileType === 'text' ? (
+        <div
+          ref={contentRef}
+          className="viewer-content"
+          onScroll={handleScroll}
+        >
+          {paperContent ? (
+            <div className="text-content" onClick={handleWordClick}>
+              {paperContent.split(/(\s+)/).map((segment, index) => {
+                // 如果是空白字符，直接返回
+                if (/^\s+$/.test(segment)) {
+                  return <span key={index}>{segment}</span>
+                }
+                // 否则，每个单词都可以点击
+                return (
+                  <span key={index} className="word" data-word={segment}>
+                    {segment}
+                  </span>
+                )
+              })}
+            </div>
+          ) : null}
+        </div>
+      ) : (
+        <div className="viewer-content">
           <div className="empty-state">
             <p>📂 请上传论文文件开始阅读</p>
-            <p className="hint">支持 .txt 格式文件</p>
+            <p className="hint">支持 .txt 和 .pdf 格式文件</p>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }
