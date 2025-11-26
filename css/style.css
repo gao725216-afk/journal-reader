@@ -1,0 +1,1223 @@
+/* ================================
+   Project HAKIMI: Maodiej-Core 视觉系统
+   ================================ */
+
+/* 全局变量 - 色彩心理学 */
+:root {
+    --color-green: #B5E61D;      /* 九阳绿 - 解药 */
+    --color-pink: #FF0055;       /* 故障粉 - 危险 */
+    --color-black: #050505;      /* 深空黑 */
+    --color-white: #FFFFFF;
+    --color-gray: #333333;
+}
+
+/* 全局重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background: var(--color-black);
+    color: var(--color-white);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* ================================
+   动态背景层 - 耄耋注视
+   ================================ */
+.bg-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.bg-gif {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.15;
+    filter: blur(2px);
+    animation: breathe 8s ease-in-out infinite;
+}
+
+@keyframes breathe {
+    0%, 100% { opacity: 0.15; transform: scale(1); }
+    50% { opacity: 0.25; transform: scale(1.05); }
+}
+
+/* ================================
+   导航栏
+   ================================ */
+.main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(5, 5, 5, 0.95);
+    border-bottom: 2px solid var(--color-green);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    box-shadow: 0 0 20px rgba(181, 230, 29, 0.3);
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-green);
+    text-shadow: 0 0 10px var(--color-green);
+    letter-spacing: 2px;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    color: var(--color-white);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.nav-menu a:hover {
+    color: var(--color-green);
+    border: 1px solid var(--color-green);
+    box-shadow: 0 0 10px rgba(181, 230, 29, 0.5);
+}
+
+.nav-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--color-green);
+}
+
+/* ================================
+   主容器
+   ================================ */
+.container {
+    margin-top: 80px;
+    padding: 2rem;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ================================
+   通用板块样式
+   ================================ */
+.section {
+    min-height: 100vh;
+    padding: 4rem 2rem;
+    position: relative;
+    border-bottom: 3px solid var(--color-green);
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--color-green);
+    text-transform: uppercase;
+    letter-spacing: 5px;
+}
+
+/* 故障艺术效果 */
+.glitch {
+    position: relative;
+    animation: glitch-main 2s infinite;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--color-pink);
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim-1 3s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--color-green);
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-main {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+}
+
+@keyframes glitch-anim-1 {
+    0% { clip: rect(48px, 9999px, 60px, 0); }
+    25% { clip: rect(12px, 9999px, 95px, 0); }
+    50% { clip: rect(76px, 9999px, 120px, 0); }
+    75% { clip: rect(30px, 9999px, 85px, 0); }
+    100% { clip: rect(65px, 9999px, 40px, 0); }
+}
+
+@keyframes glitch-anim-2 {
+    0% { clip: rect(88px, 9999px, 24px, 0); }
+    25% { clip: rect(5px, 9999px, 110px, 0); }
+    50% { clip: rect(44px, 9999px, 72px, 0); }
+    75% { clip: rect(91px, 9999px, 18px, 0); }
+    100% { clip: rect(33px, 9999px, 99px, 0); }
+}
+
+/* ================================
+   第一板块：创世纪 - 时间轴
+   ================================ */
+.timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--color-green), var(--color-pink));
+    box-shadow: 0 0 10px var(--color-green);
+}
+
+.timeline-item {
+    position: relative;
+    margin: 4rem 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.timeline-item:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.timeline-marker {
+    width: 20px;
+    height: 20px;
+    background: var(--color-green);
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 20px var(--color-green);
+    z-index: 2;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.3); }
+}
+
+.timeline-content {
+    width: 45%;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border: 2px solid var(--color-green);
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(181, 230, 29, 0.2);
+    transition: all 0.3s ease;
+}
+
+.timeline-content:hover {
+    background: rgba(181, 230, 29, 0.1);
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(181, 230, 29, 0.5);
+}
+
+.timeline-content h3 {
+    color: var(--color-green);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.btn-original {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--color-pink);
+    border: none;
+    color: var(--color-white);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px var(--color-pink);
+}
+
+.btn-original:hover {
+    background: var(--color-green);
+    box-shadow: 0 0 25px var(--color-green);
+    transform: translateY(-2px);
+}
+
+/* ================================
+   第二板块：救赎之地 - 产品展示
+   ================================ */
+.product-showcase {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+}
+
+.product-card {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 30px var(--color-green));
+    animation: float 3s ease-in-out infinite;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.product-glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(181, 230, 29, 0.3), transparent);
+    border-radius: 50%;
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+.product-info {
+    max-width: 500px;
+}
+
+.product-info h2 {
+    font-size: 2rem;
+    color: var(--color-green);
+    margin-bottom: 1rem;
+}
+
+.product-desc {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    line-height: 1.8;
+}
+
+.product-features {
+    list-style: none;
+    margin-bottom: 2rem;
+}
+
+.product-features li {
+    padding: 0.5rem 0;
+    font-size: 1.1rem;
+    color: var(--color-white);
+}
+
+.btn-buy {
+    display: inline-block;
+    padding: 1rem 3rem;
+    background: var(--color-green);
+    color: var(--color-black);
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 30px var(--color-green);
+    animation: pulse-buy 2s infinite;
+}
+
+@keyframes pulse-buy {
+    0%, 100% { box-shadow: 0 0 30px var(--color-green); }
+    50% { box-shadow: 0 0 50px var(--color-green), 0 0 80px var(--color-green); }
+}
+
+.btn-buy:hover {
+    background: var(--color-white);
+    transform: scale(1.1);
+}
+
+/* ================================
+   第三板块：模因档案馆 - 图库
+   ================================ */
+.archive-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--color-pink);
+    margin-bottom: 3rem;
+}
+
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--color-green);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    aspect-ratio: 1/1;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px var(--color-pink);
+    animation: glitch-gallery 0.3s infinite;
+}
+
+@keyframes glitch-gallery {
+    0% { transform: scale(1.05) translate(0); }
+    25% { transform: scale(1.05) translate(-2px, 2px); }
+    50% { transform: scale(1.05) translate(2px, -2px); }
+    75% { transform: scale(1.05) translate(-2px, -2px); }
+    100% { transform: scale(1.05) translate(2px, 2px); }
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+    filter: brightness(1.2) contrast(1.1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 0, 85, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-overlay span {
+    color: var(--color-white);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* ================================
+   第四板块：资本游戏 - A股操盘手
+   ================================ */
+.game-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.05);
+    border: 3px solid var(--color-green);
+    border-radius: 12px;
+    padding: 2rem;
+    position: relative;
+}
+
+.game-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-item {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+    border: 2px solid var(--color-green);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stat-item label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--color-gray);
+    margin-bottom: 0.5rem;
+}
+
+.stat-item span {
+    display: block;
+    font-size: 1.5rem;
+    color: var(--color-green);
+    font-weight: bold;
+}
+
+.emotion-bar {
+    margin-bottom: 2rem;
+}
+
+.emotion-bar label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--color-pink);
+}
+
+.emotion-track {
+    width: 100%;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--color-pink);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.emotion-fill {
+    height: 100%;
+    width: 50%;
+    background: linear-gradient(to right, var(--color-green), var(--color-pink));
+    transition: width 0.5s ease;
+    box-shadow: 0 0 15px var(--color-pink);
+}
+
+.stock-chart {
+    width: 100%;
+    height: 300px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--color-green);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    padding: 1rem;
+}
+
+#chart-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.game-controls {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.btn-game {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-buy-stock {
+    background: var(--color-green);
+    color: var(--color-black);
+}
+
+.btn-buy-stock:hover {
+    background: var(--color-white);
+    box-shadow: 0 0 25px var(--color-green);
+    transform: scale(1.1);
+}
+
+.btn-sell-stock {
+    background: var(--color-pink);
+    color: var(--color-white);
+}
+
+.btn-sell-stock:hover {
+    background: #cc0044;
+    box-shadow: 0 0 25px var(--color-pink);
+    transform: scale(1.1);
+}
+
+/* 事件卡 */
+.event-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 0, 85, 0.95);
+    border: 3px solid var(--color-white);
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 500px;
+    z-index: 100;
+    box-shadow: 0 0 50px var(--color-pink);
+    animation: event-appear 0.3s ease;
+}
+
+@keyframes event-appear {
+    from { transform: translate(-50%, -50%) scale(0); }
+    to { transform: translate(-50%, -50%) scale(1); }
+}
+
+.event-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: var(--color-white);
+}
+
+.event-content {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    line-height: 1.8;
+}
+
+.event-timer {
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: var(--color-black);
+}
+
+.event-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.btn-event {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: 2px solid var(--color-white);
+    background: var(--color-black);
+    color: var(--color-white);
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-event:hover {
+    background: var(--color-white);
+    color: var(--color-black);
+    transform: scale(1.1);
+}
+
+/* ================================
+   第五板块：决战耄耋 - Boss战
+   ================================ */
+.boss-game {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.boss-area {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.boss-sprite {
+    max-width: 400px;
+    max-height: 400px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 30px var(--color-pink));
+    animation: boss-idle 2s ease-in-out infinite;
+}
+
+@keyframes boss-idle {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.boss-sprite.attacking {
+    animation: boss-attack 0.5s ease;
+}
+
+@keyframes boss-attack {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2) rotate(5deg); }
+    100% { transform: scale(1); }
+}
+
+.boss-hp-bar {
+    max-width: 600px;
+    margin: 2rem auto;
+    background: rgba(0, 0, 0, 0.7);
+    border: 3px solid var(--color-pink);
+    border-radius: 20px;
+    padding: 1rem;
+    position: relative;
+}
+
+.hp-fill {
+    height: 30px;
+    background: linear-gradient(to right, var(--color-green), var(--color-pink));
+    border-radius: 15px;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 20px var(--color-pink);
+}
+
+.hp-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    color: var(--color-white);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.boss-status {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    color: var(--color-pink);
+    text-align: center;
+    animation: pulse-text 1.5s infinite;
+}
+
+@keyframes pulse-text {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.player-area {
+    background: rgba(255, 255, 255, 0.05);
+    border: 3px solid var(--color-green);
+    border-radius: 12px;
+    padding: 2rem;
+}
+
+.player-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+}
+
+.player-hp {
+    flex: 1;
+    margin-right: 2rem;
+}
+
+.player-hp label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--color-green);
+}
+
+.hp-bar {
+    width: 100%;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--color-green);
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+.player-hp .hp-fill {
+    width: 100%;
+    background: var(--color-green);
+}
+
+.player-hp span {
+    display: block;
+    text-align: center;
+    margin-top: 0.5rem;
+    font-weight: bold;
+}
+
+.player-rage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.player-rage label {
+    margin-bottom: 0.5rem;
+    color: var(--color-pink);
+}
+
+.rage-slots {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.rage-slot {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--color-pink);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.rage-slot.active {
+    background: var(--color-pink);
+    box-shadow: 0 0 20px var(--color-pink);
+}
+
+.player-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.btn-action {
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: 2px solid var(--color-green);
+    background: rgba(181, 230, 29, 0.2);
+    color: var(--color-white);
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-action:hover:not(:disabled) {
+    background: var(--color-green);
+    color: var(--color-black);
+    box-shadow: 0 0 25px var(--color-green);
+    transform: scale(1.05);
+}
+
+.btn-action:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.btn-ultimate {
+    border-color: var(--color-pink);
+    background: rgba(255, 0, 85, 0.2);
+}
+
+.btn-ultimate:hover:not(:disabled) {
+    background: var(--color-pink);
+    color: var(--color-white);
+    box-shadow: 0 0 25px var(--color-pink);
+}
+
+.battle-log {
+    max-height: 150px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--color-green);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.battle-log p {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* ================================
+   第六板块：真相 - 数据可视化
+   ================================ */
+.data-viz {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.viz-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 3px solid var(--color-green);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.viz-card h3 {
+    color: var(--color-green);
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+.viz-card canvas {
+    max-width: 100%;
+}
+
+.truth-conclusion {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem;
+    background: rgba(255, 0, 85, 0.1);
+    border: 3px solid var(--color-pink);
+    border-radius: 12px;
+}
+
+.truth-text {
+    font-size: 1.5rem;
+    line-height: 2;
+    margin-bottom: 2rem;
+    color: var(--color-white);
+}
+
+.btn-final-buy {
+    display: inline-block;
+    padding: 1.5rem 3rem;
+    background: var(--color-green);
+    color: var(--color-black);
+    text-decoration: none;
+    font-size: 1.8rem;
+    font-weight: bold;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 40px var(--color-green);
+    animation: pulse-buy 2s infinite;
+}
+
+.btn-final-buy:hover {
+    background: var(--color-white);
+    transform: scale(1.15);
+}
+
+/* ================================
+   Modal 弹窗
+   ================================ */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    position: relative;
+    background: var(--color-black);
+    border: 3px solid var(--color-green);
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 90%;
+    max-height: 90%;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    color: var(--color-white);
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    color: var(--color-pink);
+    transform: scale(1.2);
+}
+
+.video-wrapper {
+    width: 80vw;
+    height: 60vh;
+}
+
+.video-wrapper iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.modal-image {
+    background: transparent;
+    border: none;
+}
+
+.modal-image img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+}
+
+/* 爆仓警告 Modal */
+.modal-crash {
+    background: rgba(255, 0, 85, 0.98);
+    padding: 3rem;
+    text-align: center;
+    animation: crash-shake 0.5s infinite;
+}
+
+@keyframes crash-shake {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-10px, -10px); }
+    50% { transform: translate(10px, 10px); }
+    75% { transform: translate(-10px, 10px); }
+}
+
+.crash-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: var(--color-white);
+}
+
+.crash-message {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-white);
+}
+
+.crash-redirect {
+    font-size: 1.5rem;
+    color: var(--color-black);
+}
+
+/* 战败警告 Modal */
+.modal-defeat {
+    background: transparent;
+    border: none;
+}
+
+.defeat-screen {
+    position: relative;
+    padding: 3rem;
+    background: rgba(0, 0, 0, 0.95);
+    border: 5px solid var(--color-pink);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.screen-crack {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(45deg, transparent 48%, var(--color-white) 49%, var(--color-white) 51%, transparent 52%),
+        linear-gradient(-45deg, transparent 48%, var(--color-white) 49%, var(--color-white) 51%, transparent 52%);
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.defeat-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: var(--color-pink);
+    animation: glitch-main 0.5s infinite;
+}
+
+.defeat-message {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-white);
+}
+
+.defeat-redirect {
+    font-size: 1.5rem;
+    color: var(--color-green);
+}
+
+/* ================================
+   响应式设计 - 移动端优化
+   ================================ */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(5, 5, 5, 0.98);
+        padding: 1rem;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .nav-toggle {
+        display: block;
+    }
+
+    .section {
+        padding: 2rem 1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .timeline::before {
+        left: 20px;
+    }
+
+    .timeline-marker {
+        left: 20px;
+        transform: translateX(0);
+    }
+
+    .timeline-item,
+    .timeline-item:nth-child(even) {
+        flex-direction: row;
+        padding-left: 50px;
+    }
+
+    .timeline-content {
+        width: 100%;
+    }
+
+    .product-showcase {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .product-card {
+        width: 100%;
+        max-width: 300px;
+        height: 300px;
+    }
+
+    .gallery-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+
+    .game-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .game-controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .player-stats {
+        flex-direction: column;
+    }
+
+    .player-hp {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+
+    .player-actions {
+        gap: 0.5rem;
+    }
+
+    .btn-action {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
+
+    .boss-sprite {
+        max-width: 250px;
+        max-height: 250px;
+    }
+
+    .data-viz {
+        grid-template-columns: 1fr;
+    }
+
+    .video-wrapper {
+        width: 95vw;
+        height: 50vh;
+    }
+}
+
+/* ================================
+   滚动条样式
+   ================================ */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-black);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-green);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-pink);
+}
+
+/* ================================
+   额外动效 - 平滑滚动
+   ================================ */
+html {
+    scroll-behavior: smooth;
+}
