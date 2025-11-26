@@ -462,9 +462,13 @@ BossGame.prototype.executeBossMove = function() {
     switch(this.bossNextMove) {
         case 'red_eye':
             var damage = 50;
-            var actualDamage = this.isDefending ? Math.floor(damage * 0.5) : damage;
-            this.playerHP -= actualDamage;
-            this.addLog('耄耋眼睛发出红光，使用重拳！造成 ' + actualDamage + ' 点伤害！');
+            if (this.isDefending) {
+                // 完全格挡！
+                this.addLog('耄耋眼睛发出红光，使用重拳！你成功格挡了全部伤害！');
+            } else {
+                this.playerHP -= damage;
+                this.addLog('耄耋眼睛发出红光，使用重拳！造成 ' + damage + ' 点伤害！');
+            }
             this.isDefending = false;
             break;
         case 'hiss':
@@ -706,8 +710,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (entry.isIntersecting) {
                 var sectionId = entry.target.id;
                 if (sectionId === 'stock' && !AppState.stockGame) {
-                    console.log('🎲 启动 A股操盘手游戏');
-                    AppState.stockGame = new StockGame();
+                    console.log('🎲 启动 A股操盘手游戏 Pro');
+                    AppState.stockGame = new StockGamePro();
                 }
                 if (sectionId === 'boss' && !AppState.bossGame) {
                     console.log('⚔️ 启动 Boss战游戏');
