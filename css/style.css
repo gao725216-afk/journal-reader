@@ -393,7 +393,69 @@ body {
     text-align: center;
     font-size: 1.2rem;
     color: var(--color-pink);
+    margin-bottom: 2rem;
+}
+
+/* 搜索按钮组（新增） */
+.search-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
     margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.btn-search {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: 2px solid var(--color-green);
+    background: rgba(181, 230, 29, 0.1);
+    color: var(--color-white);
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-family: 'Courier New', monospace;
+}
+
+.btn-search:hover {
+    background: var(--color-green);
+    color: var(--color-black);
+    box-shadow: 0 0 25px var(--color-green);
+    transform: translateY(-2px);
+}
+
+.btn-bilibili {
+    border-color: #00A1D6;
+    background: rgba(0, 161, 214, 0.1);
+}
+
+.btn-bilibili:hover {
+    background: #00A1D6;
+    color: var(--color-white);
+    box-shadow: 0 0 25px #00A1D6;
+}
+
+.btn-edge {
+    border-color: #0078D4;
+    background: rgba(0, 120, 212, 0.1);
+}
+
+.btn-edge:hover {
+    background: #0078D4;
+    color: var(--color-white);
+    box-shadow: 0 0 25px #0078D4;
+}
+
+.btn-baidu {
+    border-color: #2932E1;
+    background: rgba(41, 50, 225, 0.1);
+}
+
+.btn-baidu:hover {
+    background: #2932E1;
+    color: var(--color-white);
+    box-shadow: 0 0 25px #2932E1;
 }
 
 .gallery-container {
@@ -1146,6 +1208,16 @@ body {
         width: 100%;
         max-width: 300px;
         height: 300px;
+    }
+
+    .search-buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .btn-search {
+        width: 100%;
+        padding: 0.875rem 1.5rem;
     }
 
     .gallery-container {
