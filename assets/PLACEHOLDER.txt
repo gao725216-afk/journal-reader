@@ -1,0 +1,19 @@
+本目录需要以下资产文件：
+
+必需文件清单：
+=================
+
+1. bg_main.gif - 动态背景（1920x1080+）
+2. product.png - 产品图（透明背景）
+3. boss_idle.png - Boss常态
+4. boss_red_eye.png - Boss红眼状态
+5. boss_hiss.png - Boss哈气状态
+6. boss_ko.png - Boss战败状态
+7. gallery_1.gif - 梗图1
+8. gallery_2.jpg - 梗图2
+9. gallery_3.gif - 梗图3
+
+详细说明请查看：README_ASSETS.md
+
+提示：在没有准备好实际图片之前，网站仍可正常运行，只是图片位置会显示为空白或加载失败。
+游戏逻辑不受影响！
