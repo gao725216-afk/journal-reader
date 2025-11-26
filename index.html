@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project HAKIMI: 混沌与救赎 | Maodiej Chronicles</title>
     <link rel="stylesheet" href="css/style.css">
+    <!-- Chart.js for Stock Chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
     <!-- 动态背景层 - 耄耋注视 -->
@@ -138,45 +140,86 @@
             </div>
         </section>
 
-        <!-- 第四板块：资本游戏 - A股操盘手 -->
+        <!-- 第四板块：资本游戏 - A股操盘手 Pro -->
         <section id="stock" class="section section-stock">
-            <h1 class="section-title glitch" data-text="资本游戏：A股操盘手">资本游戏：A股操盘手</h1>
+            <h1 class="section-title glitch" data-text="资本游戏：A股操盘手 Pro">资本游戏：A股操盘手 Pro</h1>
+
+            <!-- 新闻滚动条 -->
+            <div class="news-ticker-wrapper">
+                <div class="news-label">📰 快讯</div>
+                <div class="news-ticker" id="news-ticker">九阳股份今日开盘，市场情绪谨慎...</div>
+            </div>
+
             <div class="game-container">
                 <div class="game-ui">
                     <div class="game-stats">
                         <div class="stat-item">
-                            <label>持仓资金</label>
+                            <label>现金</label>
                             <span id="stock-money">¥100,000</span>
                         </div>
                         <div class="stat-item">
-                            <label>股价 (九阳股份)</label>
-                            <span id="stock-price">¥88.88</span>
+                            <label>持仓</label>
+                            <span id="stock-shares">0 股</span>
                         </div>
                         <div class="stat-item">
-                            <label>涨跌幅</label>
-                            <span id="stock-change">+0.00%</span>
+                            <label>市值</label>
+                            <span id="stock-value">¥0</span>
+                        </div>
+                        <div class="stat-item stat-highlight">
+                            <label>总资产</label>
+                            <span id="stock-total">¥100,000</span>
                         </div>
                     </div>
-                    <div class="emotion-bar">
-                        <label>散户情绪</label>
-                        <div class="emotion-track">
-                            <div class="emotion-fill" id="emotion-fill"></div>
+
+                    <div class="stock-price-display">
+                        <div class="price-main">
+                            <span class="price-label">九阳股份 (SZ002242)</span>
+                            <span class="price-value" id="stock-price">¥14.50</span>
+                            <span class="price-change" id="stock-change">+0.00%</span>
                         </div>
+                        <div class="price-day">第 <span id="stock-day">0</span> 个交易日</div>
                     </div>
+
                     <div class="stock-chart" id="stock-chart">
                         <canvas id="chart-canvas"></canvas>
                     </div>
+
                     <div class="game-controls">
-                        <button class="btn-game btn-buy-stock" id="btn-buy-stock">加仓 📈</button>
-                        <button class="btn-game btn-sell-stock" id="btn-sell-stock">跑路 📉</button>
+                        <div class="control-group">
+                            <label>杠杆倍数</label>
+                            <select id="leverage-select" class="leverage-select">
+                                <option value="1">1x 现金买入</option>
+                                <option value="2">2x 融资</option>
+                                <option value="3">3x 梭哈!</option>
+                            </select>
+                        </div>
+                        <button class="btn-game btn-buy-stock" id="btn-buy-stock">融资买入 📈</button>
+                        <button class="btn-game btn-sell-stock" id="btn-sell-stock">全部卖出 📉</button>
+                    </div>
+
+                    <div class="special-actions">
+                        <button class="btn-special" id="btn-rumor" title="花费¥5000制造利好消息">
+                            📢 散布谣言 (¥5000)
+                        </button>
+                        <button class="btn-special btn-greenbean" id="btn-greenbean" title="花费¥39降低市场波动">
+                            🫘 买绿豆浆 (¥39)
+                        </button>
+                    </div>
+
+                    <div class="trade-log" id="trade-log">
+                        <div class="log-title">交易日志</div>
+                        <div class="log-content">
+                            <p>> 游戏开始，祝你好运！</p>
+                        </div>
                     </div>
                 </div>
+
                 <!-- 事件卡弹窗 -->
                 <div class="event-card" id="event-card" style="display: none;">
-                    <div class="event-title">突发消息！</div>
+                    <div class="event-title">⚠️ 突发消息！</div>
                     <div class="event-content" id="event-content"></div>
                     <div class="event-timer">
-                        <span id="event-timer">3</span>秒后自动关闭
+                        <span id="event-timer">3</span> 秒内做出选择！
                     </div>
                     <div class="event-actions">
                         <button class="btn-event" data-action="加仓">加仓</button>
@@ -303,5 +346,6 @@
 
     <!-- JavaScript -->
     <script src="js/app.js"></script>
+    <script src="js/stock-game-pro.js"></script>
 </body>
 </html>
