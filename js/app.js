@@ -697,6 +697,60 @@ function drawBarChart(canvas) {
     }
 }
 
+// ================================
+// 背景音乐控制功能
+// ================================
+function initMusicControl() {
+    const musicBtn = document.getElementById('music-btn');
+    const bgMusic = document.getElementById('bg-music');
+    
+    // 如果页面上没有这两个元素，就不执行
+    if (!musicBtn || !bgMusic) return;
+
+    const musicIcon = musicBtn.querySelector('.music-icon');
+    let isPlaying = false;
+
+    // 切换播放/暂停的逻辑
+    function toggleMusic() {
+        if (isPlaying) {
+            bgMusic.pause();
+            musicIcon.textContent = '🔇'; // 切换为静音图标
+            musicBtn.classList.remove('playing');
+            isPlaying = false;
+        } else {
+            // play() 返回一个 Promise，处理自动播放策略
+            bgMusic.play().then(function() {
+                musicIcon.textContent = '💿'; // 切换为光盘图标
+                musicBtn.classList.add('playing');
+                isPlaying = true;
+            }).catch(function(err) {
+                console.log("自动播放被拦截，等待用户交互: ", err);
+            });
+        }
+    }
+
+    // 1. 按钮点击监听
+    musicBtn.addEventListener('click', function(e) {
+        e.stopPropagation(); // 防止触发其他点击事件
+        toggleMusic();
+    });
+
+    // 2. 首次点击页面自动播放策略 (可选，为了体验更好)
+    var autoPlayHandler = function() {
+        if (!isPlaying) {
+            bgMusic.play().then(function() {
+                musicIcon.textContent = '💿';
+                musicBtn.classList.add('playing');
+                isPlaying = true;
+            }).catch(function() {
+                // 静默失败
+            });
+        }
+        document.removeEventListener('click', autoPlayHandler);
+    };
+    document.addEventListener('click', autoPlayHandler);
+}
+
 // 页面加载
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🎮 Project HAKIMI 启动中...');
@@ -704,6 +758,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initModals();
     initDataViz();
     initGallerySearch();
+    initMusicControl();
 
     var observer = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
