@@ -5,17 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project HAKIMI: 混沌与救赎 | Maodiej Chronicles</title>
     <link rel="stylesheet" href="css/style.css">
-    <!-- Chart.js for Stock Chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
-    <!-- 动态背景层 - 耄耋注视 -->
     <div class="bg-layer">
-        <!-- TODO: 用户请替换为实际的背景 GIF -->
         <div class="bg-gif" style="background-image: url('assets/bg_main.gif');"></div>
     </div>
 
-    <!-- 导航栏 -->
     <nav class="main-nav">
         <div class="nav-logo">PROJECT HAKIMI</div>
         <ul class="nav-menu">
@@ -26,13 +22,20 @@
             <li><a href="#boss" data-section="boss">决战</a></li>
             <li><a href="#truth" data-section="truth">真相</a></li>
         </ul>
+        
+        <div class="music-control" id="music-btn" title="播放/暂停背景音乐">
+            <span class="music-icon">🔇</span> </div>
+
         <div class="nav-toggle">☰</div>
     </nav>
 
-    <!-- 主容器 -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="assets/bgm.mp3" type="audio/mpeg">
+        您的浏览器不支持 audio 元素。
+    </audio>
+
     <main class="container">
 
-        <!-- 第一板块：创世纪 - 迷因演变 -->
         <section id="genesis" class="section section-genesis">
             <h1 class="section-title glitch" data-text="创世纪：迷因演变">创世纪：迷因演变</h1>
             <div class="timeline">
@@ -69,12 +72,10 @@
             </div>
         </section>
 
-        <!-- 第二板块：救赎之地 - 绿豆产品 -->
         <section id="cure" class="section section-cure">
             <h1 class="section-title glitch" data-text="救赎之地：物理降火">救赎之地：物理降火</h1>
             <div class="product-showcase">
                 <div class="product-card">
-                    <!-- TODO: 用户请替换产品图片 -->
                     <img src="assets/product.png" alt="九阳南北绿豆豆浆" class="product-img">
                     <div class="product-glow"></div>
                 </div>
@@ -87,7 +88,6 @@
                         <li>✓ 资本寒冬必备</li>
                         <li>✓ 包治网络冲浪综合征</li>
                     </ul>
-                    <!-- TODO: 用户请在此处替换购买链接 -->
                     <a href="LINK_PRODUCT_BUY" class="btn-buy" target="_blank">
                         立即购买 - ¥19.9
                     </a>
@@ -95,12 +95,10 @@
             </div>
         </section>
 
-        <!-- 第三板块：模因档案馆 - 视觉库 -->
         <section id="archive" class="section section-archive">
             <h1 class="section-title glitch" data-text="模因档案馆">模因档案馆</h1>
             <p class="archive-subtitle">收录民间野生耄耋表情包 - 点击查看大图</p>
             <div class="gallery-container">
-                <!-- TODO: 用户可替换图库素材，或通过 JS 动态加载 -->
                 <div class="gallery-item" data-src="assets/gallery_1.gif">
                     <img src="assets/gallery_1.gif" alt="耄耋梗图1">
                     <div class="gallery-overlay">
@@ -140,11 +138,9 @@
             </div>
         </section>
 
-        <!-- 第四板块：资本游戏 - A股操盘手 Pro -->
         <section id="stock" class="section section-stock">
             <h1 class="section-title glitch" data-text="资本游戏：A股操盘手 Pro">资本游戏：A股操盘手 Pro</h1>
 
-            <!-- 新闻滚动条 -->
             <div class="news-ticker-wrapper">
                 <div class="news-label">📰 快讯</div>
                 <div class="news-ticker" id="news-ticker">九阳股份今日开盘，市场情绪谨慎...</div>
@@ -214,7 +210,6 @@
                     </div>
                 </div>
 
-                <!-- 事件卡弹窗 -->
                 <div class="event-card" id="event-card" style="display: none;">
                     <div class="event-title">⚠️ 突发消息！</div>
                     <div class="event-content" id="event-content"></div>
@@ -229,12 +224,10 @@
             </div>
         </section>
 
-        <!-- 第五板块：决战耄耋 - Boss战 -->
         <section id="boss" class="section section-boss">
             <h1 class="section-title glitch" data-text="决战耄耋：最终试炼">决战耄耋：最终试炼</h1>
             <div class="boss-game">
                 <div class="boss-area">
-                    <!-- TODO: 用户请准备 Boss 不同状态的图片 -->
                     <img src="assets/boss_idle.png" alt="耄耋Boss" id="boss-sprite" class="boss-sprite">
                     <div class="boss-hp-bar">
                         <div class="hp-fill" id="boss-hp"></div>
@@ -276,7 +269,6 @@
             </div>
         </section>
 
-        <!-- 第六板块：真相 - 数据洞察 -->
         <section id="truth" class="section section-truth">
             <h1 class="section-title glitch" data-text="真相：数据洞察">真相：数据洞察</h1>
             <div class="data-viz">
@@ -295,7 +287,6 @@
                     当迷因成为商品，混沌就是秩序。<br>
                     <strong>唯一的解药，是物理降火。</strong>
                 </p>
-                <!-- TODO: 用户请在此处替换购买链接 -->
                 <a href="LINK_PRODUCT_BUY" class="btn-final-buy" target="_blank">
                     终结混沌 - 立即购买
                 </a>
@@ -304,18 +295,15 @@
 
     </main>
 
-    <!-- 视频弹窗 Modal -->
     <div class="modal" id="video-modal">
         <div class="modal-content">
             <span class="modal-close">&times;</span>
             <div class="video-wrapper">
-                <!-- TODO: 用户根据需要替换为 <video> 或 <iframe> -->
                 <iframe id="video-frame" src="" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
     </div>
 
-    <!-- 图片查看器 Modal -->
     <div class="modal" id="image-modal">
         <div class="modal-content modal-image">
             <span class="modal-close">&times;</span>
@@ -323,7 +311,6 @@
         </div>
     </div>
 
-    <!-- 爆仓警告 Modal -->
     <div class="modal crash-modal" id="crash-modal" style="display: none;">
         <div class="modal-content modal-crash">
             <div class="crash-title">💥 爆仓警告！</div>
@@ -332,7 +319,6 @@
         </div>
     </div>
 
-    <!-- 战败警告 Modal -->
     <div class="modal defeat-modal" id="defeat-modal" style="display: none;">
         <div class="modal-content modal-defeat">
             <div class="defeat-screen">
@@ -344,7 +330,6 @@
         </div>
     </div>
 
-    <!-- JavaScript -->
     <script src="js/app.js"></script>
     <script src="js/stock-game-pro.js"></script>
 </body>
