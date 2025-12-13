@@ -1515,101 +1515,9 @@ body {
     background: var(--color-pink);
 }
 
-/* ================= 赛博唱片机样式 (重制版) ================= */
-/* ================= 赛博唱片机样式 (高级紫韵版) ================= */
-.section-frequency {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh;
-    /* 背景网格改为极淡的紫色，更有氛围感 */
-    background-image: 
-        linear-gradient(rgba(138, 43, 226, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(138, 43, 226, 0.05) 1px, transparent 1px);
-    background-size: 30px 30px;
-}
-
-.radio-dashboard {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    width: 90%;
-    max-width: 900px;
-    background: rgba(10, 10, 15, 0.85); /* 深邃黑底 */
-    
-    /* 核心修改：边框改为蓝紫色渐变，高级感拉满 */
-    border: 2px solid transparent;
-    border-image: linear-gradient(45deg, #00f2ea, #ff0050) 1;
-    
-    border-radius: 20px; /* 注意：border-image可能会影响radius，如果介意直角可以换回单色 */
-    padding: 40px;
-    
-    /* 核心修改：光晕改为柔和的紫光 */
-    box-shadow: 0 0 40px rgba(138, 43, 226, 0.15);
-    backdrop-filter: blur(10px);
-    gap: 40px;
-}
-
-/* --- 左侧控制区 --- */
-.radio-controls {
-    flex: 1;
-    min-width: 300px;
-    text-align: left;
-}
-
-.frequency-display {
-    margin-bottom: 20px;
-    border: 1px solid #333;
-    padding: 10px;
-    background: #050505;
-    border-radius: 5px;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
-}
-
-.frequency-display .label {
-    font-size: 0.8rem;
-    color: #888; /* 低调灰 */
-    display: block;
-    margin-bottom: 5px;
-}
-
-.led-screen {
-    /* 核心修改：文字改为冰川蓝，清晰冷冽 */
-    color: #00f2ea; 
-    font-family: 'Courier New', monospace;
-    overflow: hidden;
-    white-space: nowrap;
-    background: #111;
-    padding: 5px;
-    border-radius: 3px;
-    text-shadow: 0 0 5px rgba(0, 242, 234, 0.5); /* 文字自带微光 */
-}
-
-/* ... 跑马灯动画保持不变 ... */
-
-.radio-info h2 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    color: #fff;
-    /* 核心修改：标题阴影改为故障粉，形成红蓝撞色 */
-    text-shadow: 2px 2px 0px #ff0055;
-}
-
-.radio-desc {
-    color: #bbb;
-    line-height: 1.6;
-    margin-bottom: 30px;
-}
-
-.radio-desc .highlight {
-    color: #00f2ea; /* 高亮部分用冰川蓝 */
-    font-weight: bold;
-}
-
-/* 按钮样式（既然你喜欢白色，我们保持白色，但微调光晕） */
+/* ================= 赛博播放按钮 (最终版：白转蓝) ================= */
 .btn-cyber-play {
+    /* --- 布局结构 (保持不变) --- */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1617,68 +1525,49 @@ body {
     padding: 15px 50px;
     z-index: 10;
     
-    background-color: #ffffff !important;
-    color: #000000 !important;
-    border: 2px solid #fff;
+    /* --- 核心配色：默认纯白 --- */
+    background-color: #ffffff !important; /* 强制白色背景 */
+    color: #000000 !important;            /* 强制黑色文字 */
+    border: 2px solid #00f2ea;            /* 边框用冰川蓝点缀，暗示交互色 */
     
+    /* --- 字体与形状 --- */
     font-weight: 900;
     font-size: 1.5rem;
     text-decoration: none;
     text-transform: uppercase;
     clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
     
-    /* 核心修改：光晕改为淡紫色，不刺眼 */
-    box-shadow: 0 0 20px rgba(138, 43, 226, 0.4); 
-    
-    animation: btn-pulse-purple 2s infinite ease-in-out;
+    /* --- 默认光晕：白色呼吸 --- */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    animation: btn-pulse-white 2s infinite ease-in-out;
     transition: all 0.3s ease;
 }
 
+/* --- 鼠标悬停交互：变冰川蓝 --- */
 .btn-cyber-play:hover {
-    /* 悬停时：变成冰川蓝背景，更有科技感 */
-    background-color: #00f2ea !important; 
-    color: #000 !important;
-    border-color: #fff;
-    box-shadow: 0 0 40px #00f2ea, 0 0 10px #fff;
-    transform: scale(1.05) translateY(-2px);
-    animation: none;
+    background-color: #00f2ea !important; /* ✅ 悬停变成冰川蓝 */
+    color: #000000 !important;            /* 文字保持黑色 */
+    border-color: #fff;                   /* 边框变白 */
+    
+    /* 蓝色强光晕 */
+    box-shadow: 0 0 40px #00f2ea, 0 0 10px #fff; 
+    
+    transform: scale(1.1) translateY(-2px);
+    animation: none; /* 停止呼吸，保持高亮 */
 }
 
-/* 呼吸动画：紫色版 */
-@keyframes btn-pulse-purple {
-    0% { transform: scale(1); box-shadow: 0 0 10px rgba(138, 43, 226, 0.3); }
-    50% { transform: scale(1.03); box-shadow: 0 0 25px rgba(138, 43, 226, 0.6); }
-    100% { transform: scale(1); box-shadow: 0 0 10px rgba(138, 43, 226, 0.3); }
+/* 按钮内部布局 */
+.btn-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-/* ... 右侧视觉区布局保持不变 ... */
-
-/* 唱片机部分 */
-.vinyl-record {
-    /* ... 形状保持不变 ... */
-    background: repeating-radial-gradient(
-      #111 0, 
-      #111 2px, 
-      #1a1a2e 3px, /* 纹路带一点点蓝 */
-      #1a1a2e 4px
-    );
-    border: 5px solid #050505;
-    /* 核心修改：唱片发光改为深紫色 */
-    box-shadow: 0 0 30px rgba(138, 43, 226, 0.2); 
-}
-
-.vinyl-label {
-    /* 唱片中间的边框改为粉色，点缀一下 */
-    border: 3px solid #ff0055; 
-}
-
-/* 底部声波条 */
-.sound-waves span {
-    width: 6px;
-    margin: 0 2px;
-    /* 核心修改：声波条改为蓝紫渐变，非常好看 */
-    background: linear-gradient(to top, #8a2be2, #00f2ea);
-    animation: wave 1s ease-in-out infinite;
+/* 定义白色呼吸动画 */
+@keyframes btn-pulse-white {
+    0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+    50% { transform: scale(1.03); box-shadow: 0 0 25px rgba(255, 255, 255, 0.8); }
+    100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
 }
 
 /* 手机端适配 */
