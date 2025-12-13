@@ -1289,6 +1289,62 @@ body {
     text-align: center;
 }
 
+/* ================= 音乐播放器样式 ================= */
+.music-control {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--neon-green);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 15px; /* 在导航栏中的位置微调 */
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.music-control:hover {
+    background: var(--neon-green);
+    box-shadow: 0 0 15px var(--neon-green);
+}
+
+.music-control .music-icon {
+    font-size: 20px;
+    user-select: none;
+}
+
+/* 播放时的动画状态 */
+.music-control.playing {
+    animation: pulse-music 2s infinite;
+    background: rgba(0, 255, 65, 0.2);
+}
+
+.music-control.playing .music-icon {
+    animation: spin-record 3s linear infinite;
+}
+
+/* 简单的旋转动画 */
+@keyframes spin-record {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-music {
+    0% { box-shadow: 0 0 5px var(--neon-green); }
+    50% { box-shadow: 0 0 20px var(--neon-green), 0 0 10px #fff; }
+    100% { box-shadow: 0 0 5px var(--neon-green); }
+}
+
+/* 手机端适配：保持在导航栏内或调整位置 */
+@media (max-width: 768px) {
+    .music-control {
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
+    }
+}
 .screen-crack {
     position: absolute;
     top: 0;
