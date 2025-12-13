@@ -1515,9 +1515,107 @@ body {
     background: var(--color-pink);
 }
 
-/* ================= 赛博播放按钮 (最终版：白转蓝) ================= */
+/* ================= 赛博唱片机 (紫韵版 + 白蓝按钮) ================= */
+
+/* --- 1. 整体容器与背景 (紫色氛围) --- */
+.section-frequency {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    /* 背景网格：极淡的紫色 */
+    background-image: 
+        linear-gradient(rgba(138, 43, 226, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(138, 43, 226, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+/* --- 2. 控制台卡片 (渐变边框 + 毛玻璃) --- */
+.radio-dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 900px;
+    background: rgba(10, 10, 15, 0.85); /* 深邃黑底 */
+    
+    /* 边框：蓝粉渐变 */
+    border: 2px solid transparent;
+    border-image: linear-gradient(45deg, #00f2ea, #ff0050) 1;
+    border-radius: 20px; /* 注意：border-image可能会影响圆角，如介意可改回单色border */
+    
+    padding: 40px;
+    /* 光晕：柔和紫光 */
+    box-shadow: 0 0 40px rgba(138, 43, 226, 0.15);
+    backdrop-filter: blur(10px);
+    gap: 40px;
+}
+
+/* --- 3. 左侧文字区 --- */
+.radio-controls {
+    flex: 1;
+    min-width: 300px;
+    text-align: left;
+}
+
+.frequency-display {
+    margin-bottom: 20px;
+    border: 1px solid #333;
+    padding: 10px;
+    background: #050505;
+    border-radius: 5px;
+}
+
+.frequency-display .label {
+    font-size: 0.8rem;
+    color: #888;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.led-screen {
+    color: #00f2ea; /* 冰川蓝文字 */
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+    white-space: nowrap;
+    background: #111;
+    padding: 5px;
+    border-radius: 3px;
+    text-shadow: 0 0 5px rgba(0, 242, 234, 0.5);
+}
+
+.scrolling-text {
+    display: inline-block;
+    animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+.radio-info h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #fff;
+    text-shadow: 2px 2px 0px #ff0055; /* 故障粉阴影 */
+}
+
+.radio-desc {
+    color: #bbb;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.radio-desc .highlight {
+    color: #00f2ea;
+    font-weight: bold;
+}
+
+/* --- 4. 核心按钮 (默认白 -> 悬停蓝) --- */
 .btn-cyber-play {
-    /* --- 布局结构 (保持不变) --- */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1525,52 +1623,156 @@ body {
     padding: 15px 50px;
     z-index: 10;
     
-    /* --- 核心配色：默认纯白 --- */
-    background-color: #ffffff !important; /* 强制白色背景 */
-    color: #000000 !important;            /* 强制黑色文字 */
-    border: 2px solid #00f2ea;            /* 边框用冰川蓝点缀，暗示交互色 */
+    /* 默认状态：纯白背景，黑字 */
+    background-color: #ffffff !important; 
+    color: #000000 !important;            
+    border: 2px solid #00f2ea; /* 边框用冰川蓝，暗示交互色 */
     
-    /* --- 字体与形状 --- */
     font-weight: 900;
     font-size: 1.5rem;
     text-decoration: none;
     text-transform: uppercase;
+    
+    /* 形状裁剪 */
     clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
     
-    /* --- 默认光晕：白色呼吸 --- */
+    /* 默认光晕：白色 */
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
     animation: btn-pulse-white 2s infinite ease-in-out;
     transition: all 0.3s ease;
 }
 
-/* --- 鼠标悬停交互：变冰川蓝 --- */
+/* 悬停状态：变冰川蓝 */
 .btn-cyber-play:hover {
-    background-color: #00f2ea !important; /* ✅ 悬停变成冰川蓝 */
-    color: #000000 !important;            /* 文字保持黑色 */
-    border-color: #fff;                   /* 边框变白 */
+    background-color: #00f2ea !important; /* 变蓝 */
+    color: #000000 !important;
+    border-color: #fff;
     
     /* 蓝色强光晕 */
-    box-shadow: 0 0 40px #00f2ea, 0 0 10px #fff; 
-    
+    box-shadow: 0 0 40px #00f2ea, 0 0 10px #fff;
     transform: scale(1.1) translateY(-2px);
-    animation: none; /* 停止呼吸，保持高亮 */
+    animation: none;
 }
 
-/* 按钮内部布局 */
 .btn-content {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-/* 定义白色呼吸动画 */
+/* 白色呼吸动画 */
 @keyframes btn-pulse-white {
     0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
     50% { transform: scale(1.03); box-shadow: 0 0 25px rgba(255, 255, 255, 0.8); }
     100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
 }
 
-/* 手机端适配 */
+/* --- 5. 右侧唱片机视觉 (紫/蓝配色) --- */
+.radio-visual {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 300px;
+}
+
+.turntable {
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
+
+.vinyl-record {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #111;
+    /* 唱片纹路：带一点深蓝 */
+    background: repeating-radial-gradient(
+      #111 0, 
+      #111 2px, 
+      #1a1a2e 3px, 
+      #1a1a2e 4px
+    );
+    /* 唱片发光：深紫色 */
+    box-shadow: 0 0 30px rgba(138, 43, 226, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: spin 5s linear infinite;
+    border: 5px solid #050505;
+}
+
+.vinyl-label {
+    width: 40%;
+    height: 40%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #ff0055; /* 中间粉色点缀 */
+    background: #fff;
+}
+
+.vinyl-label img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 唱臂 */
+.tone-arm {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 100px;
+    height: 150px;
+    border-right: 8px solid #888;
+    border-top: 8px solid #888;
+    border-top-right-radius: 30px;
+    transform-origin: top right;
+    transform: rotate(20deg);
+    z-index: 10;
+    filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.5));
+    transition: transform 0.5s ease;
+}
+
+.radio-dashboard:hover .tone-arm {
+    transform: rotate(45deg);
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* 底部声波 (蓝紫渐变) */
+.sound-waves {
+    display: flex;
+    gap: 5px;
+    margin-top: 20px;
+    height: 30px;
+    align-items: flex-end;
+}
+
+.sound-waves span {
+    width: 6px;
+    margin: 0 2px;
+    background: linear-gradient(to top, #8a2be2, #00f2ea);
+    animation: wave 1s ease-in-out infinite;
+}
+
+.sound-waves span:nth-child(1) { height: 20%; animation-delay: 0.1s; }
+.sound-waves span:nth-child(2) { height: 60%; animation-delay: 0.2s; }
+.sound-waves span:nth-child(3) { height: 100%; animation-delay: 0.3s; }
+.sound-waves span:nth-child(4) { height: 50%; animation-delay: 0.4s; }
+.sound-waves span:nth-child(5) { height: 30%; animation-delay: 0.5s; }
+
+@keyframes wave {
+    0%, 100% { height: 20%; opacity: 0.5; }
+    50% { height: 100%; opacity: 1; }
+}
+
+/* 手机适配 */
 @media (max-width: 768px) {
     .radio-dashboard {
         flex-direction: column;
@@ -1581,7 +1783,6 @@ body {
         height: 200px;
     }
 }
-
 /* ================================
    额外动效 - 平滑滚动
    ================================ */
