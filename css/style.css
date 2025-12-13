@@ -1607,73 +1607,61 @@ body {
 
 /* 巨大的播放按钮 */
 /* ================= 赛博播放按钮 (高亮显眼版) ================= */
+/* ================= 赛博播放按钮 (修正版：默认必须可见) ================= */
 .btn-cyber-play {
-    display: flex; /* 确保文字居中 */
+    /* 布局 */
+    display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     padding: 15px 50px;
+    z-index: 10;
     
-    /* 核心修改：强制使用高亮绿背景，防止变量失效看不见 */
-    background: #00ff41; 
-    background: var(--neon-green, #00ff41); /* 优先用变量，没有就用亮绿 */
+    /* --- 关键修改：强制设置默认背景和文字颜色 --- */
+    background-color: #00ff41 !important; /* 强制亮绿色背景 */
+    color: #000000 !important;           /* 强制黑色文字 */
+    border: 2px solid #fff;              /* 加个白边框防止背景吞没 */
     
-    color: #000; /* 黑色文字对比最强烈 */
+    /* 字体样式 */
     font-weight: 900;
     font-size: 1.5rem;
     text-decoration: none;
     text-transform: uppercase;
     
-    /* 裁剪成赛博风格的多边形 */
+    /* 形状裁剪 */
     clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
     
-    /* 核心修改：默认就加上强烈的发光效果 */
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.6);
+    /* 默认发光效果 */
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.8);
     
-    /* 核心修改：加入呼吸动画，让它一直动 */
+    /* 呼吸动画 */
     animation: btn-pulse 1.5s infinite ease-in-out;
-    
     transition: all 0.3s ease;
-    cursor: pointer;
-    z-index: 10; /* 保证它浮在最上面 */
 }
 
-/* 鼠标悬停时的效果：更亮、更大、变白 */
+/* 鼠标悬停时的变化 */
 .btn-cyber-play:hover {
-    background: #fff;
-    color: #000;
-    box-shadow: 0 0 40px #00ff41, 0 0 10px #fff; /* 双重发光 */
+    background-color: #ffffff !important; /* 变白色 */
+    color: #000000 !important;            /* 文字保持黑色 */
+    box-shadow: 0 0 40px #00ff41, 0 0 10px #fff;
     transform: scale(1.1) translateY(-2px);
-    animation: none; /* 鼠标放上去时停止呼吸，变成持续高亮 */
+    animation: none; /* 悬停时停止呼吸，保持常亮 */
 }
 
-/* 按钮内的文字微调 */
+/* 按钮内部图标 */
 .btn-content {
     display: flex;
     align-items: center;
     gap: 10px;
-    z-index: 2;
 }
 
-.btn-content .icon {
-    font-size: 1.2rem;
-}
-
-/* 定义呼吸动画 */
+/* 呼吸动画定义 */
 @keyframes btn-pulse {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
-    }
-    50% {
-        transform: scale(1.05); /* 放大 5% */
-        box-shadow: 0 0 25px rgba(0, 255, 65, 0.9), 0 0 5px #fff; /* 发光增强 */
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
-    }
+    0% { transform: scale(1); box-shadow: 0 0 10px rgba(0, 255, 65, 0.5); }
+    50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 255, 65, 1); }
+    100% { transform: scale(1); box-shadow: 0 0 10px rgba(0, 255, 65, 0.5); }
 }
+
 /* --- 右侧视觉区 (唱片机) --- */
 .radio-visual {
     flex: 1;
