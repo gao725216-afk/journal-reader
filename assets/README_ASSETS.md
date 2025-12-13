@@ -70,12 +70,15 @@
 - **尺寸**: 不限
 - **内容**: 更多梗图
 
-#### 添加更多梗图
-你可以继续添加：
-- `gallery_4.gif`
-- `gallery_5.jpg`
-- `gallery_6.png`
-- ... 等等
+### overview
+gallery_1.gif|GIF|动态梗图
+gallery_2.jpg|JPG|静态表情包
+gallery_3.gif|GIF|动态梗图
+gallery_4.gif|GIF|动态梗图
+gallery_5.jpg|JPG|静态表情包
+gallery_6.gif|GIF|动态梗图
+gallery_7.png|PNG|透明背景图或截图
+gallery_8.jpg|JPG|静态表情包
 
 然后在 `index.html` 的 `.gallery-container` 中添加对应的 HTML。
 
