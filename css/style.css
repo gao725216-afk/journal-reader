@@ -1495,6 +1495,131 @@ body {
     }
 }
 
+/* ================= 心灵频段 (Radio) 样式 ================= */
+.section-frequency {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh; /* 不需要占满全屏，稍微紧凑一点 */
+}
+
+.radio-container {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 2rem;
+}
+
+.radio-card {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--neon-green, #B5E61D); /* 兼容之前的颜色变量 */
+    border-radius: 15px;
+    padding: 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(181, 230, 29, 0.1);
+    backdrop-filter: blur(5px);
+    transition: transform 0.3s ease;
+}
+
+.radio-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 30px rgba(181, 230, 29, 0.3);
+}
+
+/* 动态声波条 */
+.visualizer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 60px;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.visualizer .bar {
+    width: 10px;
+    background: var(--neon-green, #B5E61D);
+    animation: equalizer 1s infinite ease-in-out;
+}
+
+/* 让每个条跳动的时间不一样 */
+.visualizer .bar:nth-child(1) { animation-delay: 0.0s; height: 40%; }
+.visualizer .bar:nth-child(2) { animation-delay: 0.2s; height: 80%; }
+.visualizer .bar:nth-child(3) { animation-delay: 0.4s; height: 60%; }
+.visualizer .bar:nth-child(4) { animation-delay: 0.1s; height: 90%; }
+.visualizer .bar:nth-child(5) { animation-delay: 0.3s; height: 50%; }
+
+@keyframes equalizer {
+    0% { height: 20%; opacity: 0.5; }
+    50% { height: 100%; opacity: 1; box-shadow: 0 0 10px var(--neon-green, #B5E61D); }
+    100% { height: 20%; opacity: 0.5; }
+}
+
+.radio-info h2 {
+    font-family: 'Courier New', monospace;
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+}
+
+.radio-desc {
+    color: #ccc;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.radio-status {
+    font-size: 0.8rem;
+    color: var(--neon-green, #B5E61D);
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--neon-green, #B5E61D);
+    border-radius: 50%;
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* 大按钮样式 */
+.btn-radio {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 40px;
+    background: transparent;
+    border: 2px solid var(--neon-green, #B5E61D);
+    color: var(--neon-green, #B5E61D);
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-radio:hover {
+    background: var(--neon-green, #B5E61D);
+    color: #000;
+    box-shadow: 0 0 20px var(--neon-green, #B5E61D);
+}
+
 /* ================================
    滚动条样式
    ================================ */
